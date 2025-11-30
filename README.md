@@ -2,6 +2,11 @@
 
 A full-stack event management and RSVP system built with Next.js and Express.js. This application allows users to create events, manage invitations, and handle RSVP responses.
 
+## Note
+
+**AI Usage Disclosure**: AI was only used to generate this README.md file. All other code, architecture, and implementation in this project was written manually without AI assistance.
+
+
 ## Features
 
 - 🎉 **Event Management**: Create, read, update, and delete events
@@ -302,7 +307,3 @@ The following improvements can be made to enhance the project:
 - **Frontend Linting**: Implement proper linting configuration on the frontend to maintain code consistency and catch potential errors
 - **CI/CD Pipeline**: Add continuous integration and continuous deployment pipeline for automated linting and test running on every commit
 - **Development Server**: The backend already uses nodemon for dev server watching, ensuring automatic restarts on file changes
-
-## Note
-
-**AI Usage Disclosure**: AI was only used to generate this README.md file. All other code, architecture, and implementation in this project was written manually without AI assistance.
