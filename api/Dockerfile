@@ -1,4 +1,4 @@
-FROM node:24-alpine AS builder
+FROM node:24-alpine
 
 #https://github.com/nodejs/docker-node/issues/2175
 RUN apk add --no-cache openssl

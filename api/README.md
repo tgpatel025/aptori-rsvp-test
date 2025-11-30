@@ -1,1 +1,0 @@
-# aptori-rsvp-api

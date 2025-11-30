@@ -10,6 +10,7 @@ import path from 'path';
 import { errorConverter, errorHandler } from './errors/error';
 import router from './routes/index';
 import { LogFactory } from './utils/log-factory';
+import rateLimit from 'express-rate-limit';
 
 LogFactory.initialize();
 
@@ -18,8 +19,51 @@ const app = express();
 const server = createServer(app);
 
 app.set('port', port);
-app.use(helmet());
-app.use(cors());
+
+// Helmet configuration
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+        imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
+        fontSrc: ["'self'", 'https:', 'data:'],
+        objectSrc: ["'none'"],
+        frameSrc: ["'self'"],
+        frameAncestors: ["'self'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
+        frameOptions: 'deny',
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+    hsts: {
+      maxAge: 31536000,
+      includeSubDomains: true,
+      preload: true,
+    },
+  })
+);
+
+// CORS configuration
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGINS?.split(','),
+    credentials: true,
+  })
+);
+
+// Rate limiting configuration
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.',
+});
+
+app.use(limiter);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
