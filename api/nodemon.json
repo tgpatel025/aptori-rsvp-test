@@ -1,0 +1,8 @@
+{
+  "watch": ["src"],
+  "ignore": ["*.test.ts", "src/generated/*"],
+  "events": {
+    "restart": "bash -c \"if [[ \"$FILENAME\" == *\"src/routes/\"* ]] || [[ \"$FILENAME\" == *\"src/parsers/\"* ]]; then npm run -s schemas; fi\""
+  },
+  "ext": "js,mjs,json,ts,yaml"
+}
